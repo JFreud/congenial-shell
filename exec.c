@@ -1,6 +1,5 @@
 #include "headers.h"
 
-
 char ** parse_args( char * line ){
 
     char ** pointers = malloc (1000);
