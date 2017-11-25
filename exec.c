@@ -1,7 +1,5 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
+#include "headers.h"
+
 
 char ** parse_args( char * line ){
 
@@ -11,10 +9,10 @@ char ** parse_args( char * line ){
 
     char * entry = malloc(100);
     while (entry = strsep(&line, " "), entry != NULL){
-        
+
 	pointers[i] = entry;
         i++;
-	//printf("pointer %d: %s\n", i, entry);	
+	//printf("pointer %d: %s\n", i, entry);
 
     }
 
@@ -29,7 +27,7 @@ char ** parse_args( char * line ){
 }
 
 int main(){
-	
+
     char line[100] = "ls -a -l";
 
     char * p = line;
@@ -42,7 +40,7 @@ int main(){
     printf("args 3: %s\n", args[2]);
     printf("args 4: %s\n", args[3]);
     */
-    
+
     //printf("args: %s, %s", args[0], args[1]);
 
     execvp(args[0], args);
