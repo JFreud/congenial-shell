@@ -31,9 +31,6 @@ void execute(char ** args) {
     printf("Changing to: %s\n", nwd);
     chdir(args[1]);
   }
-  if (strcmp(args[0], "cd") == 0){
-    //insert edge case change directory stuff
-  }
   else {
     if (fork()) {//parent
       wait(&status);
