@@ -20,6 +20,17 @@ char ** parse_args( char * line ){
 
 void execute(char ** args) {
   int status;
+  if (!strcmp(args[0], "exit")) {//if exit command is called
+    exit(0);
+  }
+  if (!strcmp(args[0], "cd")) {//if cd is called
+    char nwd[512];
+    getcwd(nwd, sizeof(nwd));
+    strcat(nwd, "/");
+    strcat(nwd, args[1]);
+    printf("Changing to: %s\n", nwd);
+    chdir(args[1]);
+  }
   if (strcmp(args[0], "cd") == 0){
     //insert edge case change directory stuff
   }
