@@ -42,13 +42,26 @@ void execute(char ** args) {
   }
 }
 
+void execute_all(char * line){
+    int i = 0;
+
+    char * command = malloc(100);
+
+    while ((command = strsep(&line, ";"))){
+        
+        char ** args = parse_args(command);
+        execute(args);
+        i++;
+        
+    }
+}
+
 int main(){
   while (1) {//terminal keeps running
-    char * userin = malloc(100);
-    fgets(userin, 1000, stdin);
+    char * userin = malloc(500);
+    fgets(userin, 500, stdin);
     strtok(userin, "\n"); //remove newline
-    char ** args =  parse_args(userin);
-    execute(args);
+    execute_all(userin);
   }
   return 0;
 }
