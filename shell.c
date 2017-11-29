@@ -48,12 +48,26 @@ void execute_all(char * line){
     char * command = malloc(100);
 
     while ((command = strsep(&line, ";"))){
-        
+        //printf("command: %s\n", command);
+        trim(command);
         char ** args = parse_args(command);
         execute(args);
         i++;
-        
+
     }
+}
+
+char * trim(char * raw){
+  while (isspace(*raw)) {
+    raw++;
+  }
+
+  char * end = raw + strlen(raw);
+  while (isspace(*(end - 1))) {
+    end--;
+  }
+  *end = 0;
+  return raw;
 }
 
 int main(){
@@ -61,6 +75,7 @@ int main(){
     char * userin = malloc(500);
     fgets(userin, 500, stdin);
     strtok(userin, "\n"); //remove newline
+    userin = trim(userin);
     execute_all(userin);
   }
   return 0;
