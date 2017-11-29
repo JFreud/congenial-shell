@@ -49,7 +49,7 @@ void execute_all(char * line){
 
     while ((command = strsep(&line, ";"))){
         //printf("command: %s\n", command);
-        trim(command);
+        command = trim(command);
         char ** args = parse_args(command);
         execute(args);
         i++;
