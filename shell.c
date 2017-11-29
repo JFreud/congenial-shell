@@ -54,11 +54,12 @@ void stdout_to_file(char * line) {
   char * file = line;
   command = trim(command);
   file = trim(file);
-  int fd = open(file, O_TRUNC | O_CREAT, 644);
-  int newout = dup(fileno(stdout));
-  dup2(fd, fileno(stdout));
+  int fd = open(file, O_TRUNC | O_CREAT, 777);
+  int fout = fileno(stdout);
+  int newout = dup(fout);//file no of stdout
+  dup2(fd, fout);
   execute(command);
-  dup2(newout, fileno(stdout));
+  dup2(newout, fout);
   close(newout);
 }
 
@@ -69,11 +70,11 @@ void file_to_stdin(char * line) {
   file = trim(file);
 
 
-  int fd = open(file, O_RDONLY, 644);
-  int newin = dup(fileno(stdin));
-  dup2(fd, fileno(stdin));
+  int fd = open(file, O_RDONLY);
+  int newin = dup(0);//file no of stdin
+  dup2(fd, 0);
   execute(command);
-  dup2(newin, fileno(stdin));
+  dup2(newin, 0);
   close(newin);
 }
 
@@ -89,31 +90,6 @@ void execute_all(char * line){
         i++;
 
     }
-}
-
-void piping(char * line){
-
-  char ** pointers = malloc (1000);
-    int i = 0;
-    char * entry = malloc(100);
-    while ((entry = strsep(&line, "|"))){
-      pointers[i] = trim(entry);
-        i++;
-    }
-    pointers[i] = NULL;
-  
-    FILE *fp = popen(pointers[0], "r");
-
-    char * info = malloc(99999 + 1);
-    fgets(info, sizeof(info), fp);
-    
-    char ** args = malloc(100);
-    args[1] = info;
-    args[2] = NULL;
-
-    execvp(pointers[1], args);
-    pclose(fp);
-
 }
 
 char * trim(char * raw){
@@ -137,8 +113,7 @@ int main(){
     fgets(userin, 500, stdin);
     strtok(userin, "\n"); //remove newline
     userin = trim(userin);
-    //execute_all(userin);
-    piping(userin);
+    execute_all(userin);
   }
   return 0;
 }
