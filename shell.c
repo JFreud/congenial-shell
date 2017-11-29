@@ -18,7 +18,14 @@ char ** parse_args( char * line ){
 
 }
 
-void execute(char ** args) {
+void execute(char * command) {
+  if (strstr(command, ">") != NULL) {//if uses redirect
+    stdout_to_file(command);
+  }
+  if (strstr(command, "<") != NULL) {
+    file_to_stdin(command);
+  }
+  char ** args = parse_args(command);
   int status;
   if (!strcmp(args[0], "exit")) {//if exit command is called
     exit(0);
@@ -42,16 +49,43 @@ void execute(char ** args) {
   }
 }
 
+void stdout_to_file(char * line) {
+  char * command = strsep(&line, ">");
+  char * file = line;
+  command = trim(command);
+  file = trim(file);
+  int fd = open(file, O_TRUNC | O_CREAT, 644);
+  int newout = dup(fileno(stdout));
+  dup2(fd, fileno(stdout));
+  execute(command);
+  dup2(newout, fileno(stdout));
+  close(newout);
+}
+
+void file_to_stdin(char * line) {
+  char * file = strsep(&line, "<");
+  char * command = line;
+  command = trim(command);
+  file = trim(file);
+
+
+  int fd = open(file, O_RDONLY, 644);
+  int newin = dup(fileno(stdin));
+  dup2(fd, fileno(stdin));
+  execute(command);
+  dup2(newin, fileno(stdin));
+  close(newin);
+}
+
+
 void execute_all(char * line){
     int i = 0;
-
     char * command = malloc(100);
 
     while ((command = strsep(&line, ";"))){
         //printf("command: %s\n", command);
         command = trim(command);
-        char ** args = parse_args(command);
-        execute(args);
+        execute(command);
         i++;
 
     }
@@ -69,6 +103,8 @@ char * trim(char * raw){
   *end = 0;
   return raw;
 }
+
+
 
 int main(){
   while (1) {//terminal keeps running
