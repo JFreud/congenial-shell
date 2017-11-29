@@ -6,9 +6,13 @@
 #include <time.h>
 #include <sys/wait.h>
 #include <sys/types.h>
+#include <sys/stat.h>
 #include <ctype.h>
 
 
 char ** parse_args( char * line );
-void execute(char ** args);
+void execute(char * line);
+void execute_all(char * line);
 char * trim(char * raw);
+void stdout_to_file(char * line);
+void file_to_stdin(char * line);
