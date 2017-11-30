@@ -72,8 +72,6 @@ void file_to_stdin(char * line) {
   char * command = line;
   command = trim(command);
   file = trim(file);
-
-
   int fd = open(file, O_RDONLY);
   int newin = dup(0);//file no of stdin
   dup2(fd, 0);
@@ -111,9 +109,14 @@ char * trim(char * raw){
 
 
 
+
 int main(){
   while (1) {//terminal keeps running
     char * userin = malloc(500);
+    char hostname[1024];
+    hostname[1023] = '\0';
+    gethostname(hostname, 1023);
+    printf("%s$ ", hostname);
     fgets(userin, 500, stdin);
     strtok(userin, "\n"); //remove newline
     userin = trim(userin);
