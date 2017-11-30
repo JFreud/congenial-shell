@@ -54,10 +54,10 @@ void stdout_to_file(char * line) {
   char * file = line;
   command = trim(command); //input
   file = trim(file); //output
-  printf("command: %s\n", command);
-  printf("file: %s\n", file);
+  //printf("command: %s\n", command);
+  //printf("file: %s\n", file);
   int fd = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-  printf("fd: %d\n", fd);
+  //printf("fd: %d\n", fd);
   //printf("Errno: %s\n", strerror(errno));
   int fout = fileno(stdout);
   int newout = dup(fout);//file no of stdout
@@ -113,9 +113,9 @@ char * trim(char * raw){
 int main(){
   while (1) {//terminal keeps running
     char * userin = malloc(500);
-    char hostname[1024];
-    hostname[1023] = '\0';
-    gethostname(hostname, 1023);
+    char hostname[512];
+    hostname[511] = '\0';//end of file character
+    gethostname(hostname, 511);
     printf("%s$ ", hostname);
     fgets(userin, 500, stdin);
     strtok(userin, "\n"); //remove newline
