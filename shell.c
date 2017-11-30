@@ -52,9 +52,13 @@ void execute(char * command) {
 void stdout_to_file(char * line) {
   char * command = strsep(&line, ">");
   char * file = line;
-  command = trim(command);
-  file = trim(file);
-  int fd = open(file, O_TRUNC | O_CREAT, 777);
+  command = trim(command); //input
+  file = trim(file); //output
+  printf("command: %s\n", command);
+  printf("file: %s\n", file);
+  int fd = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+  printf("fd: %d\n", fd);
+  //printf("Errno: %s\n", strerror(errno));
   int fout = fileno(stdout);
   int newout = dup(fout);//file no of stdout
   dup2(fd, fout);
