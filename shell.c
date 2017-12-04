@@ -107,16 +107,32 @@ char * trim(char * raw){
   return raw;
 }
 
+char * last_cwd(char cwd[]) {
+  char * cwad = cwd;
+  // printf("%s\n", cwad);
+  while (strstr(cwad, "/")){
+    cwad++;
+    // printf("%s\n", cwad);
+  }
+  return cwad;
+}
 
 
 
 int main(){
   while (1) {//terminal keeps running
+
+//===========Prompt=======================
     char * userin = malloc(500);
     char hostname[512];
     hostname[511] = '\0';//end of file character
     gethostname(hostname, 511);
-    printf("%s$ ", hostname);
+    char cwd[512];
+    getcwd(cwd, sizeof(cwd));
+    char * cwad = last_cwd(cwd);
+    printf("%s:%s$ ", hostname, cwad); //print prompt
+
+//===========Shell=========================
     fgets(userin, 500, stdin);
     strtok(userin, "\n"); //remove newline
     userin = trim(userin);
