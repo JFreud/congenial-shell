@@ -143,6 +143,7 @@ void file_to_stdin(char * line) {
   int fd = open(file, O_RDONLY);
   if (fd == -1) {
     printf("How unfortunate. There was an error: %s\n", strerror(errno));
+    return;
   }
   int newin = dup(0);//file no of stdin
   dup2(fd, 0);

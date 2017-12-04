@@ -26,8 +26,8 @@
 * Cannot use > then < in the same command, it will just create a file with the < symbol in it.
 * Our redirection does things the shell doesn't (i.e. redirecting from file into wc).  Don't know if this is a bug or a 'feature'
 * To exit the cat command, you need to hit end of file character twice, while in the regular shell it's only once
-* If you redirect from a file that doesn't exit then it will give an error message, but you have to type the end of file character to get back to the command line
 * You can only use one pipe
+* Adding a redirect after a pipe skews up the prompts so that they no longer line up with user input
 * Not guaranteed to grow hair
 * Winged unicorns not promised, fast and magical transit not possible in NYC
 
