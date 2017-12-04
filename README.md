@@ -3,8 +3,8 @@
 
 ## Features:
 
-*Forks and executes commands
-*Parses multople commands on one line using semicolon
+-Forks and executes commands
+-Parses multople commands on one line using semicolon
 *Ignores whitespace between commands, arguments, semicolons, and |'s
 *Redirects using >, <
 *Uses pipes to pass information between commands
@@ -13,7 +13,7 @@
 
 ## Attempted Features:
 
-*Tried to list current directory as prompt.  Kind of works, but just lists <Machine>.local instead
+*Tried to list current directory as prompt.  Kind of works, but just lists address:directory instead of just directory
 
 ## Bugs:
 
