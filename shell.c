@@ -28,9 +28,9 @@ void execute(char * command) {
   if (strstr(command, "<") != NULL) {
     file_to_stdin(command);
   }
-  if (strstr(command, "|") != NULL) {
-    pipes(command);
-  }
+  // if (strstr(command, "|") != NULL) {
+  //   pipes(command);
+  // }
   char ** args = parse_args(command);
   int status;
   if (!strcmp(args[0], "exit")) {//if exit command is called
