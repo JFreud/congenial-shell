@@ -158,6 +158,7 @@ void execute_all(char * line){
 
     while ((command = strsep(&line, ";"))){
         //printf("command: %s\n", command);
+        //printf("\n");
         command = trim(command);
         execute(command);
         i++;
