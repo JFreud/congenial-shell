@@ -9,9 +9,12 @@ char ** parse_args( char * line ){
     char * entry = malloc(100);
 
     while ((entry = strsep(&line, " "))){
-        pointers[i] = entry;
-        i++;
-        //printf("pointer %d: %s\n", i, entry);
+      if ((!(isspace(*entry)) && strcmp(entry, "") != 0 )){
+	//printf("Entry %d is: %s.\n", i, entry);
+	//printf("\tIs space?: %d \tBlank?: %d\n", isspace(*entry), strcmp(entry, ""));
+	pointers[i] = trim(entry);
+	i++;
+      }
     }
     pointers[i] = NULL;
     return pointers;
