@@ -21,6 +21,7 @@
 ## Bugs:
 
 * Putting two semicolons next to each other will break the parser, but doesn't throw an error
+* If there's no user input it gives a seg fault
 * Cannot put whitespace between command and arguments
 * Cannot use > then < in the same command, it will just create a file with the < symbol in it.
 * Our redirection does things the shell doesn't (i.e. redirecting from file into wc).  Don't know if this is a bug or a 'feature'

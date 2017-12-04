@@ -28,6 +28,10 @@ void execute(char * command) {
   if (strstr(command, "<") != NULL) {
     file_to_stdin(command);
   }
+  if (strstr(command, "|") != NULL) {
+    piping(command);
+    return;
+  }
   // if (strstr(command, "|") != NULL) {
   //   pipes(command);
   // }
