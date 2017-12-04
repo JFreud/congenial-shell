@@ -26,38 +26,38 @@
 
 ## Files & Function Headers:
 
-### parse_args
-`char ** parse_args( char * line );`
-Input: char * line
-Returns: char ** array of command and arguments
-Used to turn a user input line into something you could feed into an execvp function
+### parse_args  
+`char ** parse_args( char * line );`  
+Input: char * line  
+Returns: char ** array of command and arguments  
+Used to turn a user input line into something you could feed into an execvp function  
 
-### execute
-`void execute(char * line);`
-Input: char * line
-Returns: void
-Decides which function to use to deal with the user inputed line
+### execute  
+`void execute(char * line);`  
+Input: char * line  
+Returns: void  
+Decides which function to use to deal with the user inputed line  
 
-### execute_all
-`void execute_all(char * line);`
-Input: char * line
-Returns: void
-Runs execute multiple times, used to deal with command lines with semicolons
+### execute_all  
+`void execute_all(char * line);`  
+Input: char * line  
+Returns: void  
+Runs execute multiple times, used to deal with command lines with semicolons  
 
-### trim
-`char * trim(char * raw);`
-Input: char * raw
-Returns: char * new
-Takes a string array and removes whitespace from beginning and end
+### trim  
+`char * trim(char * raw);`  
+Input: char * raw  
+Returns: char * new  
+Takes a string array and removes whitespace from beginning and end  
 
-### stdout_to_file
-`void stdout_to_file(char * line);`
-Input: char * line
-Returns: void
-Used to redirect stdout to a file
+### stdout_to_file  
+`void stdout_to_file(char * line);`  
+Input: char * line  
+Returns: void  
+Used to redirect stdout to a file  
 
-### file_to_stdin
-`void file_to_stdin(char * line);`
-Input: char * line
-Returns: void
-Used to redirect file to stdin
+### file_to_stdin  
+`void file_to_stdin(char * line);`  
+Input: char * line  
+Returns: void  
+Used to redirect file to stdin  
