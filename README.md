@@ -26,10 +26,10 @@
 
 ## Files & Function Headers:
 
-' char ** parse_args( char * line ); '
-' void execute(char * line); '
-' void execute_all(char * line); '
-' char * trim(char * raw); '
-' void stdout_to_file(char * line); '
-' void file_to_stdin(char * line); '
-' void piping(char * line); '
+`char ** parse_args( char * line );`
+`void execute(char * line);`
+`void execute_all(char * line);`
+`char * trim(char * raw);`
+`void stdout_to_file(char * line);`
+`void file_to_stdin(char * line);`
+`void piping(char * line);`
