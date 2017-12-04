@@ -49,50 +49,12 @@ void execute(char * command) {
   }
 }
 
-void stdout_to_file(char * line) {
-  char * command = strsep(&line, ">");
-  char * file = line;
-  command = trim(command); //input
-  file = trim(file); //output
-  //printf("command: %s\n", command);
-  //printf("file: %s\n", file);
-  int fd = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-  //printf("fd: %d\n", fd);
-  //printf("Errno: %s\n", strerror(errno));
-  int fout = fileno(stdout);
-  int newout = dup(fout);//file no of stdout
-  dup2(fd, fout);
-  execute(command);
-  dup2(newout, fout);
-  close(newout);
-}
-
-void file_to_stdin(char * line) {
-  char * file = strsep(&line, "<");
-  char * command = line;
-  command = trim(command);
-  file = trim(file);
-  int fd = open(file, O_RDONLY);
-  int newin = dup(0);//file no of stdin
-  dup2(fd, 0);
-  execute(command);
-  dup2(newin, 0);
-  close(newin);
-}
 
 
-void execute_all(char * line){
-    int i = 0;
-    char * command = malloc(100);
 
-    while ((command = strsep(&line, ";"))){
-        //printf("command: %s\n", command);
-        command = trim(command);
-        execute(command);
-        i++;
 
-    }
-}
+
+
 
 
 void piping(char * line){
@@ -119,6 +81,62 @@ void piping(char * line){
     pclose(fp);
 
 }
+
+
+
+void stdout_to_file(char * line) {
+  char * command = strsep(&line, ">");
+  char * file = line;
+  command = trim(command); //input
+  file = trim(file); //output
+  //printf("command: %s\n", command);
+  //printf("file: %s\n", file);
+  int fd = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+  if (fd == -1) {
+    printf("How unfortunate. There was an error: %s\n", strerror(errno));
+  }
+  //printf("fd: %d\n", fd);
+  //printf("Errno: %s\n", strerror(errno));
+  int fout = fileno(stdout);
+  int newout = dup(fout);//file no of stdout
+  dup2(fd, fout);
+  execute(command);
+  dup2(newout, fout);
+  close(newout);
+}
+
+void file_to_stdin(char * line) {
+  char * file = strsep(&line, "<");
+  char * command = line;
+  command = trim(command);
+  file = trim(file);
+  int fd = open(file, O_RDONLY);
+  if (fd == -1) {
+    printf("How unfortunate. There was an error: %s\n", strerror(errno));
+  }
+  int newin = dup(0);//file no of stdin
+  dup2(fd, 0);
+  execute(command);
+  dup2(newin, 0);
+  close(newin);
+}
+
+
+void execute_all(char * line){
+    int i = 0;
+    char * command = malloc(100);
+
+    while ((command = strsep(&line, ";"))){
+        //printf("command: %s\n", command);
+        command = trim(command);
+        execute(command);
+        i++;
+
+    }
+}
+
+
+
 
 
 
