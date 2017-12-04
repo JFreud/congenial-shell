@@ -7,14 +7,14 @@
 * Forks and executes commands
 * Parses multiple commands on one line using semicolon
 * Ignores whitespace between commands, semicolons, and |'s
-* Redirects using > and <
+* Redirects using < and >
 * Uses pipes to pass information between commands
 * Prints a command prompt when expecting user input
 
 ## Attempted Features:
 
 * Error handling (e.g. file open didn't work or putting two semicolons next to each other)
-* Added command prompt but it still displays .local as part of hostname
+* Added command prompt but it still displays .local as part of hostname and gets messed up after using a pipe
 * Trim function to remove unnecessary whitespace, but it only handles leading and trailing whitespace, not whitespace between command and arguments
 
 
@@ -27,6 +27,7 @@
 * Cannot use > then < in the same command, it will just create a file with the < symbol in it.
 * Our redirection does things the shell doesn't (i.e. redirecting from file into wc).  Don't know if this is a bug or a 'feature'
 * To exit the cat command, you need to hit end of file character twice, while in the regular shell it's only once
+* After catting a file, you have to hit a newline to return to the command prompt
 * You can only use one pipe
 * Not guaranteed to grow hair
 * Winged unicorns not promised, fast and magical transit not possible in NYC
