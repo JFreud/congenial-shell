@@ -78,39 +78,39 @@ void pipes (char * line) {
   execute(output);
   dup2(newin, fin);
   pclose(fpin);
-
-
-}
-
-
-
-
-
-
-void piping(char * line){
-
-    char ** pointers = malloc (1000);
-    int i = 0;
-    char * entry = malloc(100);
-    while ((entry = strsep(&line, "|"))){
-      pointers[i] = trim(entry);
-        i++;
-    }
-    pointers[i] = NULL;
-
-    FILE *fp = popen(pointers[0], "r");
-
-    char * info = malloc(99999 + 1);
-    fgets(info, sizeof(info), fp);
-
-    char ** args = malloc(100);
-    args[1] = info;
-    args[2] = NULL;
-
-    execvp(pointers[1], args);
-    pclose(fp);
+  close(newin);
 
 }
+
+
+
+
+
+
+// void piping(char * line){
+//
+//     char ** pointers = malloc (1000);
+//     int i = 0;
+//     char * entry = malloc(100);
+//     while ((entry = strsep(&line, "|"))){
+//       pointers[i] = trim(entry);
+//         i++;
+//     }
+//     pointers[i] = NULL;
+//
+//     FILE *fp = popen(pointers[0], "r");
+//
+//     char * info = malloc(99999 + 1);
+//     fgets(info, sizeof(info), fp);
+//
+//     char ** args = malloc(100);
+//     args[1] = info;
+//     args[2] = NULL;
+//
+//     execvp(pointers[1], args);
+//     pclose(fp);
+//
+// }
 
 
 

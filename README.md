@@ -21,13 +21,13 @@
 ## Bugs:
 
 * Putting two semicolons next to each other will break the parser, but doesn't throw an error
-* If there's no user input it gives a seg fault
+* Pressing ctrl + d makes it go wack and print the prompt a gajillion times before seg faulting.
+* Pipes skew the prompts so that it prints with stdout instead of when taking input
 * Cannot put whitespace between command and arguments
 * Cannot use > then < in the same command, it will just create a file with the < symbol in it.
 * Our redirection does things the shell doesn't (i.e. redirecting from file into wc).  Don't know if this is a bug or a 'feature'
 * To exit the cat command, you need to hit end of file character twice, while in the regular shell it's only once
 * You can only use one pipe
-* Adding a redirect after a pipe skews up the prompts so that they no longer line up with user input
 * Not guaranteed to grow hair
 * Winged unicorns not promised, fast and magical transit not possible in NYC
 
@@ -78,3 +78,9 @@ char * last_cwd(char cwd[])
 Input: char array of current path
 Returns: char array to current directory name
 Used to display directory part of command prompt
+
+### pipes
+void pipes (char * line)
+Input: line with a pipe in it
+Returns: void
+Used to run commands that have a pipe in them
