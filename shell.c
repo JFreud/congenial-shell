@@ -28,6 +28,9 @@ void execute(char * command) {
   if (strstr(command, "<") != NULL) {
     file_to_stdin(command);
   }
+  if (strstr(command, "|") != NULL) {
+    pipes(command);
+  }
   char ** args = parse_args(command);
   int status;
   if (!strcmp(args[0], "exit")) {//if exit command is called
@@ -53,7 +56,26 @@ void execute(char * command) {
 }
 
 
-
+// void pipes (char * line) {
+//   char * input = strsep(&line, "|");
+//   char * output = line;
+//   input = trim(input);
+//   output = trim(output);
+//
+//   int fin = fileno(stdin);
+//   int newin = dup(fin);//file no of stdin
+//
+//   FILE *fpin = popen(input, "r");
+//   int fdin = fileno(fpin);
+//   dup2(fdin, fin);
+//   execute(output);
+//   dup2(newin, fin);
+//   pclose(fpin);
+//
+//
+//
+//
+// }
 
 
 
@@ -62,7 +84,7 @@ void execute(char * command) {
 
 void piping(char * line){
 
-  char ** pointers = malloc (1000);
+    char ** pointers = malloc (1000);
     int i = 0;
     char * entry = malloc(100);
     while ((entry = strsep(&line, "|"))){
