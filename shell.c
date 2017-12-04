@@ -35,7 +35,7 @@ void execute(char * command) {
     getcwd(nwd, sizeof(nwd));
     strcat(nwd, "/");
     strcat(nwd, args[1]);
-    printf("Changing to: %s\n", nwd);
+    //printf("Changing to: %s\n", nwd);
     chdir(args[1]);
   }
   else {
@@ -93,6 +93,34 @@ void execute_all(char * line){
 
     }
 }
+
+
+void piping(char * line){
+
+  char ** pointers = malloc (1000);
+    int i = 0;
+    char * entry = malloc(100);
+    while ((entry = strsep(&line, "|"))){
+      pointers[i] = trim(entry);
+        i++;
+    }
+    pointers[i] = NULL;
+
+    FILE *fp = popen(pointers[0], "r");
+
+    char * info = malloc(99999 + 1);
+    fgets(info, sizeof(info), fp);
+
+    char ** args = malloc(100);
+    args[1] = info;
+    args[2] = NULL;
+
+    execvp(pointers[1], args);
+    pclose(fp);
+
+}
+
+
 
 char * trim(char * raw){
   while (isspace(*raw)) {
