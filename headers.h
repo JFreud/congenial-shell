@@ -17,3 +17,4 @@ void execute_all(char * line);
 char * trim(char * raw);
 void stdout_to_file(char * line);
 void file_to_stdin(char * line);
+void piping(char * line);
