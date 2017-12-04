@@ -16,7 +16,7 @@
 * Error handling (e.g. file open didn't work or putting two semicolons next to each other)
 * Added command prompt but it still displays .local as part of hostname
 * Trim function to remove unnecessary whitespace, but it only handles leading and trailing whitespace, not whitespace between command and arguments
-* Pipes but they don't work
+
 
 ## Bugs:
 
@@ -27,6 +27,8 @@
 * Our redirection does things the shell doesn't (i.e. redirecting from file into wc).  Don't know if this is a bug or a 'feature'
 * To exit the cat command, you need to hit end of file character twice, while in the regular shell it's only once
 * If you redirect from a file that doesn't exit then it will give an error message, but you have to type the end of file character to get back to the command line
+* You can only use one pipe
+* Have to add newline to continue after command
 * Not guaranteed to grow hair
 * Winged unicorns not promised, fast and magical transit not possible in NYC
 

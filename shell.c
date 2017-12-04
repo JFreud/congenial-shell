@@ -22,6 +22,9 @@ char ** parse_args( char * line ){
 }
 
 void execute(char * command) {
+  if (strcmp(command, "") == 0){
+    return;
+  }
   if (strstr(command, ">") != NULL) {//if uses redirect
     stdout_to_file(command);
   }
@@ -29,12 +32,9 @@ void execute(char * command) {
     file_to_stdin(command);
   }
   if (strstr(command, "|") != NULL) {
-    piping(command);
+    pipes(command);
     return;
   }
-  // if (strstr(command, "|") != NULL) {
-  //   pipes(command);
-  // }
   char ** args = parse_args(command);
   int status;
   if (!strcmp(args[0], "exit")) {//if exit command is called
@@ -60,26 +60,27 @@ void execute(char * command) {
 }
 
 
-// void pipes (char * line) {
-//   char * input = strsep(&line, "|");
-//   char * output = line;
-//   input = trim(input);
-//   output = trim(output);
-//
-//   int fin = fileno(stdin);
-//   int newin = dup(fin);//file no of stdin
-//
-//   FILE *fpin = popen(input, "r");
-//   int fdin = fileno(fpin);
-//   dup2(fdin, fin);
-//   execute(output);
-//   dup2(newin, fin);
-//   pclose(fpin);
-//
-//
-//
-//
-// }
+void pipes (char * line) {
+  char * input = strsep(&line, "|");
+  char * output = line;
+  input = trim(input);
+  output = trim(output);
+
+  // printf("%s\n", input);
+  // printf("%s\n", output);
+
+  int fin = fileno(stdin);
+  int newin = dup(fin);//file no of stdin
+
+  FILE *fpin = popen(input, "r");
+  int fdin = fileno(fpin);
+  dup2(fdin, fin);
+  execute(output);
+  dup2(newin, fin);
+  pclose(fpin);
+
+
+}
 
 
 
